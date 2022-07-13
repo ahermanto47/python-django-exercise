@@ -100,10 +100,45 @@ urlpatterns = [
 xcopy posts comments /s /e
 ```
 
+## Run both microservices
+
+> After finish developing, we start both microservices. One one terminal we start the posts api
+
+```
+cd posts
+```
+
+```
+python3 manage.py runserver
+```
+
+> On another terminal we start the comments api on another port
+
+```
+cd comments
+```
+
+```
+python3 manage.py runserver 8001
+```
 
 ## Test posts endpoint with curl
 
+> Add one post
+
 ```
 curl -X POST -H "Content-type: application/json" -d "{\"title\": \"title 1\", \"description\": \"description 1\"}" http://localhost:8000/api/posts
+```
+
+> Add comment for that post
+
+```
+curl -X POST -H "Content-type: application/json" -d "{\"post_id\": 1, \"text\": \"comment 1\"}" http://localhost:8001/api/comments
+```
+
+> Then read our post
+
+```
+curl http://localhost:8000/api/posts
 ```
 
