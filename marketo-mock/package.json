@@ -1,0 +1,28 @@
+{
+  "name": "marketo-mock",
+  "version": "0.0.1",
+  "description": "Mock service for marketo swagger api",
+  "main": "index.js",
+  "scripts": {
+    "server":"prism mock https://developers.marketo.com/swagger/swagger-mapi.json"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ahermanto47/python-django-exercise.git"
+  },
+  "keywords": [
+    "Python",
+    "Django",
+    "Rest",
+    "Marketo"
+  ],
+  "author": "Andi Hermanto",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ahermanto47/python-django-exercise/issues"
+  },
+  "homepage": "https://github.com/ahermanto47/python-django-exercise#readme",
+  "dependencies": {
+    "@stoplight/prism-cli": "^4.10.1"
+  }
+}
