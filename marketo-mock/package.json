@@ -4,7 +4,7 @@
   "description": "Mock service for marketo swagger api",
   "main": "index.js",
   "scripts": {
-    "server":"prism mock swagger-mapi.json --dynamic --errors"
+    "server":"prism mock swagger-bulk-export-activities.json --dynamic --errors"
   },
   "repository": {
     "type": "git",
