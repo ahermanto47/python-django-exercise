@@ -14,10 +14,10 @@ class GetBulkExportActivitiesClient:
     """A simple console application to create activities job, 
        poll its status, and retrieve the file when status completed"""
 
-    def __init__(self,token,baseUrl) -> None:
-        self.token=token
+    def __init__(self,security_client,baseUrl) -> None:
         self.baseUrl=baseUrl
-
+        self.security_client = security_client
+        self.token = security_client.get_token()
 
     def do_get(self,path):
         return requests.get(url=self.baseUrl+path,headers={'Authorization':self.token})
