@@ -1,9 +1,24 @@
-from .marketo_bulk_activities_client import GetBulkExportActivitiesClient
 import pytest
+from .marketo_bulk_activities_client import GetBulkExportActivitiesClient
+from ..security.marketo_identity_client import MarketoIdentityClient
 
 @pytest.fixture
-def client():
-    return GetBulkExportActivitiesClient(baseUrl="http://127.0.0.1:4010")
+def credential():
+    return {
+        'client_id': 'fqYxsb4BU5OMG1fDO2h5kDU2Le/V6yYF1Om+kLOqdmc=',
+        'client_secret': 'SL5J28zkQQm67kO0mKHQOJht2u5Zfsq+adPFhp0kJxT9PymqzdGbLDyzOGQEot9R+s0LUySoMafnfMrFiU3WWg==',
+        'grant_type': 'client_credentials',
+        '__example': 'success'
+    }
+
+@pytest.fixture
+def securityClient():
+    return MarketoIdentityClient(baseUrl="http://127.0.0.1:4010")
+
+@pytest.fixture
+def client(securityClient, credential):
+    mytoken = securityClient.login(credential).json()['access_token']
+    return GetBulkExportActivitiesClient(baseUrl="http://127.0.0.1:4011",token=mytoken)
 
 def test_get_all_export_jobs_gets_response_with_200_code(client):
     response = client.get_all_export_jobs()

@@ -14,17 +14,19 @@ class GetBulkExportActivitiesClient:
     """A simple console application to create activities job, 
        poll its status, and retrieve the file when status completed"""
 
-    def __init__(self,baseUrl) -> None:
+    def __init__(self,token,baseUrl) -> None:
+        self.token=token
         self.baseUrl=baseUrl
 
+
     def do_get(self,path):
-        return requests.get(url=self.baseUrl+path)
+        return requests.get(url=self.baseUrl+path,headers={'Authorization':self.token})
     
     def do_post(self,path,data=None):
         if data != None :
-            return requests.post(url=self.baseUrl+path,json=data) 
+            return requests.post(url=self.baseUrl+path,headers={'Authorization':self.token},json=data) 
         else:
-            return requests.post(url=self.baseUrl+path)
+            return requests.post(url=self.baseUrl+path,headers={'Authorization':self.token})
 
     """Pull all export jobs"""
 

@@ -15,7 +15,7 @@
         "url": "http://developers.marketo.com/api-license/"
       }
     },
-    "host": "127.0.0.1:4010",
+    "host": "127.0.0.1:4011",
     "basePath": "/",
     "schemes": ["http"],
     "tags": [],
@@ -1002,5 +1002,14 @@
           }
         }
       }	
-    }
+    },
+    "securityDefinitions": {
+      "bearerAuth": {
+        "name": "Authorization",
+        "in": "header",
+        "type": "apiKey",
+        "description": "JWT Authorization header"
+      }
+    },
+    "security": [ { "bearerAuth": [] } ]    
   }
