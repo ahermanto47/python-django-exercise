@@ -1,20 +1,23 @@
 import requests
+import os
 
 class MarketoIdentityClient:
 
     def base_url(self):
-        return "http://127.0.0.1:4010"
+        return os.getenv('SECURITY_ENDPOINT')
 
     def credential(self):
         return {
-            'client_id': 'fqYxsb4BU5OMG1fDO2h5kDU2Le/V6yYF1Om+kLOqdmc=',
-            'client_secret': 'SL5J28zkQQm67kO0mKHQOJht2u5Zfsq+adPFhp0kJxT9PymqzdGbLDyzOGQEot9R+s0LUySoMafnfMrFiU3WWg==',
+            'client_id': os.environ.get('CLIENT_ID'),
+            'client_secret': os.getenv('CLIENT_SECRET'),
             'grant_type': 'client_credentials',
             '__example': 'success'
         }
 
     def __init__(self) -> None:
         self.baseUrl = self.base_url()
+        print(self.baseUrl)
+        print(self.credential())
         response = self.login().json()
         self.token = response['access_token']
 
