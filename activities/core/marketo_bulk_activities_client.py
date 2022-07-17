@@ -14,19 +14,34 @@ class GetBulkExportActivitiesClient:
     """A simple console application to create activities job, 
        poll its status, and retrieve the file when status completed"""
 
-    def __init__(self,security_client,baseUrl) -> None:
+    def __init__(self,security_client,baseUrl,additional_params=None,additional_headers=None) -> None:
         self.baseUrl=baseUrl
         self.security_client = security_client
         self.token = security_client.get_token()
+        self.headers = {'Authorization':self.token}
+        if additional_headers != None:
+            self.headers.update(additional_headers)
+        self.additional_params = additional_params
 
     def do_get(self,path):
-        return requests.get(url=self.baseUrl+path,headers={'Authorization':self.token})
+        return requests.get(url=self.baseUrl+path,headers=self.headers,params=self.additional_params)
     
     def do_post(self,path,data=None):
         if data != None :
-            return requests.post(url=self.baseUrl+path,headers={'Authorization':self.token},json=data) 
+            return requests.post(url=self.baseUrl+path,headers={'Authorization':self.token},json=data,params=self.additional_params) 
         else:
-            return requests.post(url=self.baseUrl+path,headers={'Authorization':self.token})
+            return requests.post(url=self.baseUrl+path,headers={'Authorization':self.token},params=self.additional_params)
+
+    """Add additional headers"""
+
+    def set_additional_headers(self,additional_headers):
+        if additional_headers != None:
+            self.headers.update(additional_headers)
+
+    """Add additional query parameters"""
+
+    def set_additional_params(self,additional_params):
+        self.additional_params = additional_params
 
     """Pull all export jobs"""
 

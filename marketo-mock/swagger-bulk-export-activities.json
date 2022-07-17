@@ -75,6 +75,69 @@
               "description": "OK",
               "schema": {
                 "$ref": "#/definitions/ResponseOfExportResponseWithToken"
+              },
+              "examples": {
+                "success" : {
+
+                  "errors":[],
+                  "nextPageToken":"l",
+                  "requestId":"abc123",
+                  "result":[
+                     {
+                        "exportId":"exportId1",
+                        "status":"created",
+                        "fileChecksum":"2cc8a71175134471baa9f0c07585718ec1ed717feb9f0d888494cb1255b0ecc2  result-123.csv",
+                        "format":"CSV",
+                        "fileSize":1024,
+                        "errorMsg":"in",
+                        "startedAt":"1986-10-11T00:00:00.0Z",
+                        "queuedAt":"1956-08-25T04:00:00.0Z",
+                        "createdAt":"1975-08-18T04:00:00.0Z",
+                        "finishedAt":"1946-02-18T05:00:00.0Z",
+                        "numberOfRecords":-8791579738447454000
+                     }
+                  ],
+                  "success":true,
+                  "warnings":[]                 
+                  
+                },
+                "success-warning" : {
+
+                  "errors":[],
+                  "nextPageToken":"l",
+                  "requestId":"abc123",
+                  "result":[
+                     {
+                        "exportId":"exportId1",
+                        "status":"created",
+                        "fileChecksum":"2cc8a71175134471baa9f0c07585718ec1ed717feb9f0d888494cb1255b0ecc2  result-123.csv",
+                        "format":"CSV",
+                        "fileSize":1024,
+                        "errorMsg":"in",
+                        "startedAt":"1986-10-11T00:00:00.0Z",
+                        "queuedAt":"1956-08-25T04:00:00.0Z",
+                        "createdAt":"1975-08-18T04:00:00.0Z",
+                        "finishedAt":"1946-02-18T05:00:00.0Z",
+                        "numberOfRecords":-8791579738447454000
+                     }
+                  ],
+                  "success":true,
+                  "warnings":[
+                     {
+                        "code":-998873391,
+                        "message":"quis magna incididunt"
+                     },
+                     {
+                        "code":118841440,
+                        "message":"cupidatat laboris ni"
+                     },
+                     {
+                        "code":-1111912350,
+                        "message":"fugiat officia Ut ut"
+                     }
+                  ]                 
+                  
+                }
               }
             }
           }
@@ -216,6 +279,9 @@
               "description": "OK",
               "schema": {
                 "$ref": "#/definitions/ObservableOfInputStreamRangeContent"
+              },
+              "examples": {
+                "response.csv" : "bWFya2V0b0dVSUQsIGxlYWRJZAowMDB4eHgxMjNDQ0MsIGxlYWRJZDE="
               }
             }
           }

@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "identity":"prism mock swagger-identity.json --port 4010 --dynamic --errors",
-    "activities":"prism mock swagger-bulk-export-activities.json --port 4011 --dynamic --errors"
+    "activities":"prism mock swagger-bulk-export-activities.yaml --port 4011 --errors"
   },
   "repository": {
     "type": "git",

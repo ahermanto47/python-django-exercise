@@ -14,11 +14,16 @@ def security_client():
 def client(security_client):
     return GetBulkExportActivitiesClient(baseUrl="http://127.0.0.1:4011",security_client=security_client)
 
-def test_get_all_export_jobs_gets_response_with_200_code(client):
+def test_get_all_export_jobs(client):
+    client.set_additional_params(additional_params={'__example':'success'})
     response = client.get_all_export_jobs()
     assert response.status_code == 200
     response_data = response.json()
+    assert response_data['success'] == True
+    assert response_data['requestId'] == 'abc123'
     assert len(response_data['result']) >= 0
+    assert len(response_data['errors']) == 0
+    assert len(response_data['warnings']) == 0
 
 def test_create_export_job(client):
     payload = {
@@ -55,6 +60,10 @@ def test_get_export_job_status(client):
     assert response_data['requestId'] != None
 
 def test_get_export_file(client):
+    # client.set_additional_params(additional_params={'__example':'response1'})
+    client.set_additional_headers(additional_headers={'Accept': 'text/plain'})
+    client.set_additional_headers(additional_headers={'Content-Type': 'text/plain'})
     response = client.get_export_file(export_id='abc123')
+    print('file is \n%s' % response.text)
     assert response.status_code == 200
 
