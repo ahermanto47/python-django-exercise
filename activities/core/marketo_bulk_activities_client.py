@@ -28,9 +28,9 @@ class GetBulkExportActivitiesClient:
     
     def do_post(self,path,data=None):
         if data != None :
-            return requests.post(url=self.baseUrl+path,headers={'Authorization':self.token},json=data,params=self.additional_params) 
+            return requests.post(url=self.baseUrl+path,headers=self.headers,json=data,params=self.additional_params) 
         else:
-            return requests.post(url=self.baseUrl+path,headers={'Authorization':self.token},params=self.additional_params)
+            return requests.post(url=self.baseUrl+path,headers=self.headers,params=self.additional_params)
 
     """Add additional headers"""
 
