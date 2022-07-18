@@ -79,7 +79,7 @@ def test_get_export_file(client):
         print(row)
         
 
-def test_full_job_lifecyce(client):
+def test_full_job_lifecycle(client):
 
     global lifecycle_client
     
