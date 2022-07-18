@@ -18,7 +18,7 @@ class GetBulkExportActivitiesClient:
         self.baseUrl=baseUrl
         self.security_client = security_client
         self.token = security_client.get_token()
-        self.headers = {'Authorization':self.token}
+        self.headers = {'Authorization': 'Bearer ' + self.token}
         if additional_headers != None:
             self.headers.update(additional_headers)
         self.additional_params = additional_params
