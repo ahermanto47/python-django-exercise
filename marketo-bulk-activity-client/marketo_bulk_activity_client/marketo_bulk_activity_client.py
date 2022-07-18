@@ -12,7 +12,7 @@ class Operation(Enum):
 
 class MarketoBulkActivityClient:
 
-    """A simple console application to create activities job, 
+    """A simple application to create a bulk activity job, 
        poll its status, and retrieve the file when status completed"""
 
     def __init__(self,security_client: MarketoIdentityClient,baseUrl,additional_params=None,additional_headers=None) -> None:
