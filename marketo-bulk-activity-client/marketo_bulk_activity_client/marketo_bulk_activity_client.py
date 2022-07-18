@@ -52,12 +52,12 @@ class MarketoBulkActivityClient:
     """Get status of an export job"""
 
     def get_export_job_status(self,export_id):
-        return self.do_get(path=Operation.get_job_status.value)
+        return self.do_get(path=Operation.get_job_status.value.format(export_id=export_id))
 
     """Get file of an export job"""
 
     def get_export_file(self,export_id):
-        return self.do_get(path=Operation.get_export_file.value)
+        return self.do_get(path=Operation.get_export_file.value.format(export_id=export_id))
 
     """Create an export jobs"""
 
@@ -67,11 +67,11 @@ class MarketoBulkActivityClient:
     """Cancel an export jobs"""
 
     def cancel_export_job(self,export_id):
-        return self.do_post(path=Operation.cancel_job.value)
+        return self.do_post(path=Operation.cancel_job.value.format(export_id=export_id))
 
     """Enqueue an export jobs"""
 
     def enqueue_export_job(self,export_id):
-        return self.do_post(path=Operation.enqueue_job.value)
+        return self.do_post(path=Operation.enqueue_job.value.format(export_id=export_id))
 
 

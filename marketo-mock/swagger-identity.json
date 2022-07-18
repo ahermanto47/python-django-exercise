@@ -70,12 +70,20 @@
                             }
                         },
                         "examples":
-                            {   "success" : {
+                            {   
+                                "success" : {
                                     "access_token": "OTqizIIO53cgpWDOCgwIzw==",
                                     "scope": "Bulk Export",
                                     "expires_in": 600,
                                     "token_type": "bearer"
+                                },
+                                "expired_token" : {
+                                    "access_token": "UZmYzNDFiZmI4MjQ4MDVhNg==",
+                                    "scope": "Bulk Export",
+                                    "expires_in": 0,
+                                    "token_type": "bearer"
                                 }
+
                             }
                     }
                 }

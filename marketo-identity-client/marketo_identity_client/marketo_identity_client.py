@@ -1,5 +1,6 @@
 import requests
 import os
+import time
 
 class MarketoIdentityClient:
 
@@ -24,11 +25,30 @@ class MarketoIdentityClient:
             self.credential_dict = credential_param
         else:
             self.credential_dict = self.credential()
-        response = self.login().json()
-        self.token = response['access_token']
+        response = self.login()
+
+    def set_credential(self,credential_param):
+        self.credential_dict = credential_param
 
     def login(self):
-        return requests.get(url=self.baseUrl+'/identity/oauth/token',params=self.credential_dict)
+        global response
+        try:
+            response = requests.get(url=self.baseUrl+'/identity/oauth/token',params=self.credential_dict).json()
+        except:
+            print('login - in except')
+        else:
+            print('login - in else')
+            self.token = response['access_token']
+            self.token_expiration_time = time.time() + response['expires_in']
+        finally:
+            print('login - in finally')
+            return response
 
     def get_token(self):
         return self.token
+
+    def is_token_expired(self):
+        return time.time() >= self.token_expiration_time
+
+    def refresh_token(self):
+        return self.login()
