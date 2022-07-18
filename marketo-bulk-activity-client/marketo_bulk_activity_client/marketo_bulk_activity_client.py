@@ -10,7 +10,7 @@ class Operation(Enum):
     cancel_job = f'/bulk/v1/activities/export/{{export_id}}/cancel.json'
     enqueue_job = f'/bulk/v1/activities/export/{{export_id}}/enqueue.json'
 
-class GetBulkExportActivitiesClient:
+class MarketoBulkActivityClient:
 
     """A simple console application to create activities job, 
        poll its status, and retrieve the file when status completed"""

@@ -1,5 +1,5 @@
 import pytest
-from .marketo_bulk_activities_client import GetBulkExportActivitiesClient
+from marketo_bulk_activity_client import MarketoBulkActivityClient
 from marketo_identity_client import MarketoIdentityClient
 import os
 import csv
@@ -14,7 +14,7 @@ def security_client():
 
 @pytest.fixture
 def client(security_client):
-    return GetBulkExportActivitiesClient(baseUrl="http://127.0.0.1:4011",security_client=security_client)
+    return MarketoBulkActivityClient(baseUrl="http://127.0.0.1:4011",security_client=security_client)
 
 def test_get_all_export_jobs(client):
     client.set_additional_params(additional_params={'__example':'success'})
