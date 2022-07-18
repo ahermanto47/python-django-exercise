@@ -1,5 +1,6 @@
 import requests
 from enum import Enum
+from marketo_identity_client import MarketoIdentityClient
 
 class Operation(Enum):
     get_all_job = '/bulk/v1/activities/export.json'
@@ -14,7 +15,7 @@ class GetBulkExportActivitiesClient:
     """A simple console application to create activities job, 
        poll its status, and retrieve the file when status completed"""
 
-    def __init__(self,security_client,baseUrl,additional_params=None,additional_headers=None) -> None:
+    def __init__(self,security_client: MarketoIdentityClient,baseUrl,additional_params=None,additional_headers=None) -> None:
         self.baseUrl=baseUrl
         self.security_client = security_client
         self.token = security_client.get_token()

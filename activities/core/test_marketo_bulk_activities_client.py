@@ -1,6 +1,6 @@
 import pytest
 from .marketo_bulk_activities_client import GetBulkExportActivitiesClient
-from ..security.marketo_identity_client import MarketoIdentityClient
+from marketo_identity_client import MarketoIdentityClient
 import os
 import csv
 import time
