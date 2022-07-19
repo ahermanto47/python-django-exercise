@@ -1,0 +1,2424 @@
+{
+    "swagger": "2.0",
+    "info": {
+      "description": "Marketo Rest API",
+      "version": "1.0",
+      "title": "Marketo Rest API",
+      "termsOfService": "https://www.marketo.com/company/legal/",
+      "contact": {
+        "name": "Marketo Developer Relations",
+        "url": "http://developers.marketo.com",
+        "email": "developerfeedback@marketo.com"
+      },
+      "license": {
+        "name": "API License Agreement",
+        "url": "http://developers.marketo.com/api-license/"
+      }
+    },
+    "host": "127.0.0.1:4012",
+    "basePath": "/",
+    "schemes": ["http"],
+    "tags": [
+      {
+        "name": "Bulk Import Custom Objects",
+        "description": "Bulk Import Custom Objects Controller"
+      },
+      {
+        "name": "Bulk Import Program Members",
+        "description": "Bulk Import Program Members Controller"
+      },
+      {
+        "name": "Bulk Export Custom Objects",
+        "description": "Bulk Export Custom Objects Controller"
+      }	
+    ],
+    "paths": {
+      "/bulk/v1/customobjects/{apiName}/import.json": {
+        "post": {
+          "tags": [
+            "Bulk Import Custom Objects"
+          ],
+          "summary": "Import Custom Objects",
+          "description": "Imports a file containing data records into the target instance.  Required Permissions: Read-Write Custom Object",
+          "operationId": "importCustomObjectUsingPOST",
+          "consumes": [
+            "multipart/form-data"
+          ],
+          "produces": [
+            "application/json"
+          ],
+          "parameters": [
+            {
+              "name": "apiName",
+              "in": "path",
+              "description": "API Name of the custom object for the import batch job.",
+              "required": true,
+              "type": "string"
+            },
+            {
+              "name": "format",
+              "in": "query",
+              "description": "Import file format.",
+              "required": true,
+              "type": "string",
+              "enum": [
+                "csv",
+                "tsv",
+                "ssv"
+              ]
+            },
+            {
+              "name": "file",
+              "in": "formData",
+              "description": "File containing the data records to import.",
+              "required": true,
+              "type": "file"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "OK",
+              "schema": {
+                "$ref": "#/definitions/ResponseOfImportCustomObjectResponse"
+              },
+              "examples": {
+                 "create_reservation_import_job": {
+                    "errors": [
+                        {
+                          "code": "string",
+                          "message": "string"
+                        }
+                    ],
+                    "moreResult": false,
+                    "nextPageToken": "string",
+                    "requestId": "string",
+                    "result": [
+                        {
+                          "batchId": 1,
+                          "importTime": "string",
+                          "message": "string",
+                          "numOfObjectsProcessed": -2147483648,
+                          "numOfRowsFailed": -2147483648,
+                          "numOfRowsWithWarning": -2147483648,
+                          "objectApiName": "string",
+                          "operation": "string",
+                          "status": "string"
+                        }
+                    ],
+                    "success": false,
+                    "warnings": [
+                        {
+                          "code": -2147483648,
+                          "message": "string"
+                        }
+                    ]
+                }
+              }
+            }
+          }
+        }
+      },
+      "/bulk/v1/customobjects/{apiName}/import/{batchId}/failures.json": {
+        "get": {
+          "tags": [
+            "Bulk Import Custom Objects"
+          ],
+          "summary": "Get Import Custom Object Failures",
+          "description": "Returns the list of failures for the import batch job.  Required Permissions: Read-Write Custom Object",
+          "operationId": "getImportCustomObjectFailuresUsingGET",
+          "consumes": [
+            "application/json"
+          ],
+          "produces": [
+            "application/json"
+          ],
+          "parameters": [
+            {
+              "name": "apiName",
+              "in": "path",
+              "description": "API Name of the custom object for the import batch job.",
+              "required": true,
+              "type": "string"
+            },
+            {
+              "name": "batchId",
+              "in": "path",
+              "description": "Id of the import batch job.",
+              "required": true,
+              "type": "integer",
+              "format": "int32"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "OK",
+              "schema": {
+                "$ref": "#/definitions/ObservableOfInputStreamContent"
+              }
+            }
+          }
+        }
+      },
+      "/bulk/v1/customobjects/{apiName}/import/{batchId}/status.json": {
+        "get": {
+          "tags": [
+            "Bulk Import Custom Objects"
+          ],
+          "summary": "Get Import Custom Object Status",
+          "description": "Returns the status of an import batch job.  Required Permissions: Read-Write Custom Object",
+          "operationId": "getImportCustomObjectStatusUsingGET",
+          "consumes": [
+            "application/json"
+          ],
+          "produces": [
+            "application/json"
+          ],
+          "parameters": [
+            {
+              "name": "apiName",
+              "in": "path",
+              "description": "API Name of the custom object for the import batch job.",
+              "required": true,
+              "type": "string"
+            },
+            {
+              "name": "batchId",
+              "in": "path",
+              "description": "Id of the import batch job.",
+              "required": true,
+              "type": "integer",
+              "format": "int32"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "OK",
+              "schema": {
+                "$ref": "#/definitions/ResponseOfImportCustomObjectResponse"
+              }
+            }
+          }
+        }
+      },
+      "/bulk/v1/customobjects/{apiName}/import/{batchId}/warnings.json": {
+        "get": {
+          "tags": [
+            "Bulk Import Custom Objects"
+          ],
+          "summary": "Get Import Custom Object Warnings",
+          "description": "Returns the list of warnings for the import batch job.  Required Permissions: Read-Write Custom Object",
+          "operationId": "getImportCustomObjectWarningsUsingGET",
+          "consumes": [
+            "application/json"
+          ],
+          "produces": [
+            "application/json"
+          ],
+          "parameters": [
+            {
+              "name": "apiName",
+              "in": "path",
+              "description": "API Name of the custom object for the import batch job.",
+              "required": true,
+              "type": "string"
+            },
+            {
+              "name": "batchId",
+              "in": "path",
+              "description": "Id of the import batch job.",
+              "required": true,
+              "type": "integer",
+              "format": "int32"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "OK",
+              "schema": {
+                "$ref": "#/definitions/ObservableOfInputStreamContent"
+              }
+            }
+          }
+        }
+      },      
+      "/bulk/v1/customobjects/{apiName}/export.json": {
+        "get": {
+          "tags": [
+            "Bulk Export Custom Objects"
+          ],
+          "summary": "Get Export Custom Object Jobs",
+          "description": "Returns a list of export jobs that were created in the past 7 days.  Required Permissions: Read-Only Custom Object",
+          "operationId": "getExportCustomObjectsUsingGET",
+          "consumes": [
+            "application/json"
+          ],
+          "produces": [
+            "application/json"
+          ],
+          "parameters": [
+            {
+              "name": "apiName",
+              "in": "path",
+              "description": "API Name of the custom object for the export batch job.",
+              "required": true,
+              "type": "string"
+            },		
+            {
+              "name": "status",
+              "in": "query",
+              "description": "Comma separated list of statuses to filter on.",
+              "required": false,
+              "type": "array",
+              "items": {
+                "type": "string"
+              },
+              "collectionFormat": "multi",
+              "enum": [
+                "created",
+                "queued",
+                "processing",
+                "cancelled",
+                "completed",
+                "failed"
+              ]
+            },
+            {
+              "name": "batchSize",
+              "in": "query",
+              "description": "The batch size to return. The max and default value is 300.",
+              "required": false,
+              "type": "integer",
+              "format": "int32"
+            },
+            {
+              "name": "nextPageToken",
+              "in": "query",
+              "description": "A token will be returned by this endpoint if the result set is greater than the batch size and can be passed in a subsequent call through this parameter. See Paging Tokens for more info.",
+              "required": false,
+              "type": "string"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "OK",
+              "schema": {
+                "$ref": "#/definitions/ResponseOfExportResponseWithToken"
+              },
+              "examples": {
+                "success": {
+                  "errors": [
+                     {
+                        "code": "string",
+                        "message": "string"
+                     }
+                  ],
+                  "nextPageToken": "string",
+                  "requestId": "abc123",
+                  "result": [
+                     {
+                        "createdAt": "2019-08-24T14:15:22Z",
+                        "errorMsg": "string",
+                        "exportId": "string",
+                        "fileSize": -9223372036854776000,
+                        "fileChecksum": "string",
+                        "finishedAt": "2019-08-24T14:15:22Z",
+                        "format": "string",
+                        "numberOfRecords": -9223372036854776000,
+                        "queuedAt": "2019-08-24T14:15:22Z",
+                        "startedAt": "2019-08-24T14:15:22Z",
+                        "status": "string"
+                     }
+                  ],
+                  "success": true,
+                  "warnings": [
+                     {
+                        "code": -2147483648,
+                        "message": "string"
+                     }
+                  ]
+               }
+                
+              }
+            }
+          }
+        }
+      },
+      "/bulk/v1/customobjects/{apiName}/export/create.json": {
+        "post": {
+          "tags": [
+            "Bulk Export Custom Objects"
+          ],
+          "summary": "Create Export Custom Object Job",
+          "description": "Create export job for search criteria defined via \"filter\" parameter.  Request returns the \"exportId\" which is passed as a parameter in subsequent calls to Bulk Export Custom Object endpoints.  Use Enqueue Export Custom Object Job endpoint to queue the export job for processing.  Use Get Export Custom Object Job Status endpoint to retrieve status of export job.  Required Permissions: Read-Only Custom Object",
+          "operationId": "createExportCustomObjectsUsingPOST",
+          "consumes": [
+            "application/json"
+          ],
+          "produces": [
+            "application/json"
+          ],
+          "parameters": [
+            {
+              "name": "apiName",
+              "in": "path",
+              "description": "API Name of the custom object for the export batch job.",
+              "required": true,
+              "type": "string"
+            },				
+            {
+              "in": "body",
+              "name": "exportCustomObjectRequest",
+              "description": "exportCustomObjectRequest<br><br>ColumnHeaderNames: A JSON object containing key-value pairs of custom object attributes and column header names.<br><br>Example:<br><code>\"columnHeaderNames\":{<br>  \"attrName1\":\"value1\",<br>  \"attrName2\":\"value2\",<br>  \"attrName3\":\"value3\"<br>}</code><br>",
+              "required": false,
+              "schema": {
+                "$ref": "#/definitions/ExportCustomObjectRequest"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "OK",
+              "schema": {
+                "$ref": "#/definitions/ResponseOfExportResponse"
+              }
+            }
+          }
+        }
+      },
+      "/bulk/v1/customobjects/{apiName}/export/{exportId}/cancel.json": {
+        "post": {
+          "tags": [
+            "Bulk Export Custom Objects"
+          ],
+          "summary": "Cancel Export Custom Object Job",
+          "description": "Cancel export job.  Required Permissions: Read-Only Custom Object",
+          "operationId": "cancelExportCustomObjectsUsingPOST",
+          "consumes": [
+            "application/json"
+          ],
+          "produces": [
+            "application/json"
+          ],
+          "parameters": [
+            {
+              "name": "apiName",
+              "in": "path",
+              "description": "API Name of the custom object for the export batch job.",
+              "required": true,
+              "type": "string"
+            },				
+            {
+              "name": "exportId",
+              "in": "path",
+              "description": "Id of export batch job.",
+              "required": true,
+              "type": "string"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "OK",
+              "schema": {
+                "$ref": "#/definitions/ResponseOfExportResponse"
+              }
+            }
+          }
+        }
+      },
+      "/bulk/v1/customobjects/{apiName}/export/{exportId}/enqueue.json": {
+        "post": {
+          "tags": [
+            "Bulk Export Custom Objects"
+          ],
+          "summary": "Enqueue Export Custom Object Job",
+          "description": "Enqueue export job. This will place export job in queue, and will start the job when computing resources become available.  The export job must be in \"Created\" state.  Use Get Export Custom Object Job Status endpoint to retrieve status of export job.  Required Permissions: Read-Only Custom Object",
+          "operationId": "enqueueExportCustomObjectsUsingPOST",
+          "consumes": [
+            "application/json"
+          ],
+          "produces": [
+            "application/json"
+          ],
+          "parameters": [
+            {
+              "name": "apiName",
+              "in": "path",
+              "description": "API Name of the custom object for the export batch job.",
+              "required": true,
+              "type": "string"
+            },				
+            {
+              "name": "exportId",
+              "in": "path",
+              "description": "Id of export batch job.",
+              "required": true,
+              "type": "string"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "OK",
+              "schema": {
+                "$ref": "#/definitions/ResponseOfExportResponse"
+              }
+            }
+          }
+        }
+      },
+      "/bulk/v1/customobjects/{apiName}/export/{exportId}/file.json": {
+        "get": {
+          "tags": [
+            "Bulk Export Custom Objects"
+          ],
+          "summary": "Get Export Custom Object File",
+          "description": "Returns the file content of an export job.  The export job must be in \"Completed\" state.  Use Get Export Custom Object Job Status endpoint to retrieve status of export job.  Required Permissions: Read-Only Custom Object<br><br>The file format is specified by calling the Create Export Custom Object Job endpoint. The following is an example of the default file format (\"CSV\").<br><br><code>leadId,marketoGUID,itemName</code><br><code>11,c93f0494-bbd9-44e8-9c0e-dae9b525073f,Hoka One One Mach 4</code>",
+          "operationId": "getExportCustomObjectsFileUsingGET",
+          "consumes": [
+            "application/json"
+          ],
+          "produces": [
+            "text/plain"
+          ],
+          "parameters": [
+            {
+              "name": "apiName",
+              "in": "path",
+              "description": "API Name of the custom object for the export batch job.",
+              "required": true,
+              "type": "string"
+            },				
+            {
+              "name": "exportId",
+              "in": "path",
+              "description": "Id of export batch job.",
+              "required": true,
+              "type": "string"
+            },
+            {
+              "name": "Range",
+              "in": "header",
+              "description": "To support partial retrieval of extracted data, the HTTP header \"Range\" of type \"bytes\" may be specified.  See RFC 2616 \"Range Retrieval Requests\" for more information. If the header is not set, the entire contents will be returned.",
+              "required": false,
+              "type": "string"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "OK",
+              "examples":{
+                "text/plain": "marketoGUID,leadId,activityDate,activityTypeId,campaignId,primaryAttributeValueId,primaryAttributeValue,attributes\n122323,6,2013-09-26T06:56:35+0000,12,11,6,Owyliphys Iledil,[{\"name\":\"Source Type\",\"value\":\"Web page visit\"}]\n"
+              }
+            }
+          }
+        }
+      },
+      "/bulk/v1/customobjects/{apiName}/export/{exportId}/status.json": {
+        "get": {
+          "tags": [
+            "Bulk Export Custom Objects"
+          ],
+          "summary": "Get Export Custom Object Job Status",
+          "description": "Returns status of an export job.  Job status is available for 30 days after Completed or Failed status was reached. Required Permissions: Read-Only Custom Object",
+          "operationId": "getExportCustomObjectsStatusUsingGET",
+          "consumes": [
+            "application/json"
+          ],
+          "produces": [
+            "application/json"
+          ],
+          "parameters": [
+            {
+              "name": "apiName",
+              "in": "path",
+              "description": "API Name of the custom object for the export batch job.",
+              "required": true,
+              "type": "string"
+            },				
+            {
+              "name": "exportId",
+              "in": "path",
+              "description": "Id of export batch job.",
+              "required": true,
+              "type": "string"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "OK",
+              "schema": {
+                "$ref": "#/definitions/ResponseOfExportResponse"
+              }
+            }
+          }
+        }
+      },	
+      "/rest/v1/customobjects.json": {
+        "get": {
+          "tags": [
+            "Custom Objects"
+          ],
+          "summary": "List Custom Objects",
+          "description": "Returns a list of Custom Object types available in the target instance, along with id and deduplication information for each type.  Required Permissions: Read-Only Custom Object, Read-Write Custom Object",
+          "operationId": "listCustomObjectsUsingGET",
+          "consumes": [
+            "application/json"
+          ],
+          "produces": [
+            "application/json"
+          ],
+          "parameters": [
+            {
+              "name": "names",
+              "in": "query",
+              "description": "Comma-separated list of names to filter types on",
+              "required": false,
+              "type": "array",
+              "items": {
+                "type": "string"
+              },
+              "collectionFormat": "multi"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "OK",
+              "schema": {
+                "$ref": "#/definitions/ResponseOfObjectMetaData"
+              }
+            }
+          }
+        }
+      },
+      "/rest/v1/customobjects/{customObjectName}.json": {
+        "get": {
+          "tags": [
+            "Custom Objects"
+          ],
+          "summary": "Get Custom Objects",
+          "description": "Retrieves a list of custom objects records based on filter and set of values.  There are two unique types of requests for this endpoint: one is executed normally using a GET with URL parameters, the other is by passing a JSON object in the body of a POST and specifying _method=GET in the querystring.  The latter is used when dedupeFields attribute has more than one field, which is known as a \"compound key\".  Required Permissions: Read-Only Custom Object, Read-Write Custom Object",
+          "operationId": "getCustomObjectsUsingGET",
+          "consumes": [
+            "application/json"
+          ],
+          "produces": [
+            "application/json"
+          ],
+          "parameters": [
+            {
+              "name": "customObjectName",
+              "in": "path",
+              "description": "Name of custom object type to retrieve records for",
+              "required": true,
+              "type": "string"
+            },
+            {
+              "in": "body",
+              "name": "customObjectLookupRequest",
+              "description": "Optional JSON request for retrieving custom objects with compound keys.  Example:<br><code>{<br>\"filterType\":\"dedupeFields\",<br>\"fields\":[<br>\"marketoGuid\",<br>\"Bedrooms\",<br>\"yearBuilt\"<br>],<br>\"input\":[<br>{<br>\"mlsNum\":\"1962352\",<br>\"houseOwnerId\":\"42645756\"<br>},<br>{<br>\"mlsNum\":\"3962352\",<br>\"houseOwnerId\":\"62645756\"<br>}<br>]<br>}</code><br>",
+              "required": false,
+              "schema": {
+                "$ref": "#/definitions/LookupCustomObjectRequest"
+              }
+            },
+            {
+              "name": "filterType",
+              "in": "query",
+              "description": "Field to filter on. Searchable fields can be retrieved with Describe Custom Object",
+              "required": true,
+              "type": "string"
+            },
+            {
+              "name": "filterValues",
+              "in": "query",
+              "description": "Comma-separated list of field values to match against.",
+              "required": true,
+              "type": "array",
+              "items": {
+                "type": "string"
+              },
+              "collectionFormat": "multi"
+            },
+            {
+              "name": "fields",
+              "in": "query",
+              "description": "Comma-separated list of fields to return for each record.  If unset marketoGuid, dedupeFields, updatedAt, createdAt will be returned",
+              "required": false,
+              "type": "array",
+              "items": {
+                "type": "string"
+              },
+              "collectionFormat": "multi"
+            },
+            {
+              "name": "batchSize",
+              "in": "query",
+              "description": "The batch size to return.  The max and default value is 300.",
+              "required": false,
+              "type": "integer",
+              "format": "int32"
+            },
+            {
+              "name": "nextPageToken",
+              "in": "query",
+              "description": "A token will be returned by this endpoint if the result set is greater than the batch size and can be passed in a subsequent call through this parameter.  See Paging Tokens for more info.",
+              "required": false,
+              "type": "string"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "OK",
+              "schema": {
+                "$ref": "#/definitions/ResponseOfCustomObject"
+              }
+            }
+          }
+        },
+        "post": {
+          "tags": [
+            "Custom Objects"
+          ],
+          "summary": "Sync Custom Objects",
+          "description": "Inserts, updates, or upserts custom object records to the target instance.  Required Permissions: Read-Write Custom Object",
+          "operationId": "syncCustomObjectsUsingPOST",
+          "consumes": [
+            "application/json"
+          ],
+          "produces": [
+            "application/json"
+          ],
+          "parameters": [
+            {
+              "name": "customObjectName",
+              "in": "path",
+              "description": "customObjectName",
+              "required": true,
+              "type": "string"
+            },
+            {
+              "in": "body",
+              "name": "syncCustomObjectRequest",
+              "description": "syncCustomObjectRequest",
+              "required": true,
+              "schema": {
+                "$ref": "#/definitions/SyncCustomObjectRequest"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "OK",
+              "schema": {
+                "$ref": "#/definitions/ResponseOfCustomObject"
+              }
+            }
+          }
+        }
+      },
+      "/rest/v1/customobjects/{customObjectName}/delete.json": {
+        "post": {
+          "tags": [
+            "Custom Objects"
+          ],
+          "summary": "Delete Custom Objects",
+          "description": "Deletes a given set of custom object records.  Required Permissions: Read-Write Custom Object",
+          "operationId": "deleteCustomObjectsUsingPOST",
+          "consumes": [
+            "application/json"
+          ],
+          "produces": [
+            "application/json"
+          ],
+          "parameters": [
+            {
+              "name": "customObjectName",
+              "in": "path",
+              "description": "customObjectName",
+              "required": true,
+              "type": "string"
+            },
+            {
+              "in": "body",
+              "name": "deleteCustomObjectRequest",
+              "description": "deleteCustomObjectRequest",
+              "required": false,
+              "schema": {
+                "$ref": "#/definitions/DeleteCustomObjectRequest"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "OK",
+              "schema": {
+                "$ref": "#/definitions/ResponseOfCustomObject"
+              }
+            }
+          }
+        }
+      },
+      "/rest/v1/customobjects/{customObjectName}/describe.json": {
+        "get": {
+          "tags": [
+            "Custom Objects"
+          ],
+          "summary": "Describe Custom Objects",
+          "description": "Returns metadata regarding a given custom object.  Required Permissions: Read-Only Custom Object, Read-Write Custom Object",
+          "operationId": "describeUsingGET_1",
+          "consumes": [
+            "application/json"
+          ],
+          "produces": [
+            "application/json"
+          ],
+          "parameters": [
+            {
+              "name": "customObjectName",
+              "in": "path",
+              "description": "customObjectName",
+              "required": true,
+              "type": "string"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "OK",
+              "schema": {
+                "$ref": "#/definitions/ResponseOfObjectMetaData"
+              }
+            }
+          }
+        }
+      },
+      "/rest/v1/customobjects/schema.json": {
+        "get": {
+          "tags": [
+            "Custom Objects"
+          ],
+          "summary": "List Custom Object Types",
+          "description": "Returns a list of Custom Object Types available in the target instance, along with id, deduplication, relationship, and field information for each type.  Required Permissions: Read-Only Custom Object Type, Read-Write Custom Object Type",
+          "operationId": "listCustomObjectTypesUsingGET",
+          "consumes": [
+            "application/json"
+          ],
+          "produces": [
+            "application/json"
+          ],
+          "parameters": [
+            {
+              "name": "names",
+              "in": "query",
+              "description": "Comma-separated list of API names of custom object types to filter on",
+              "required": false,
+              "type": "array",
+              "items": {
+                "type": "string"
+              },
+              "collectionFormat": "multi"
+            },
+            {
+              "name": "state",
+              "in": "query",
+              "description": "State of custom object type to filter on.  By default, if an approved version exists, it is returned.  Otherwise, the draft version is returned.",
+              "required": false,
+              "type": "string",
+              "enum": [
+                "draft",
+                "approved",
+                "approvedWithDraft"
+              ]
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "OK",
+              "schema": {
+                "$ref": "#/definitions/ResponseOfObjectMetaData"
+              }
+            }
+          }
+        },
+        "post": {
+          "tags": [
+            "Custom Objects"
+          ],
+          "summary": "Sync Custom Object Type",
+          "description": "Inserts, updates, or upserts custom object type record to the target instance.  Required Permissions: Read-Write Custom Object Type",
+          "operationId": "syncCustomObjectTypeUsingPOST",
+          "consumes": [
+            "application/json"
+          ],
+          "produces": [
+            "application/json"
+          ],
+          "parameters": [
+            {
+              "in": "body",
+              "name": "syncCustomObjectTypeRequest",
+              "description": "JSON object containing custom object type attributes",
+              "required": true,
+              "schema": {
+                "$ref": "#/definitions/SyncCustomObjectTypeRequest"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "OK",
+              "schema": {
+                "$ref": "#/definitions/ResponseOfCustomObjectType"
+              }
+            }
+          }
+        }	  
+      },
+      "/rest/v1/customobjects/schema/{apiName}/approve.json":{  
+        "post":{  
+          "tags":[  
+            "Custom Objects"
+          ],
+          "summary":"Approve Custom Object Type",
+          "description":"Approves the current draft of the type, and makes it the live version.  This will delete the current live version of the type.  Required Permissions: Read-Write Custom Object Type",
+          "operationId":"approveCustomObjectTypeUsingPOST",
+          "consumes":[  
+            "application/json"
+          ],
+          "produces":[  
+            "application/json"
+          ],
+          "parameters":[  
+            {  
+              "name":"apiName",
+              "in":"path",
+              "description": "API Name of the custom object type to approve",						
+              "required":true,
+              "type":"string"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "OK",
+              "schema": {
+                "$ref": "#/definitions/ResponseOfCustomObjectType"
+              }
+            }
+          }
+        }
+      },	
+      "/rest/v1/customobjects/schema/{apiName}/discardDraft.json":{  
+        "post":{  
+          "tags":[  
+            "Custom Objects"
+          ],
+          "summary":"Discard Custom Object Type Draft",
+          "description":"Discards the current draft of the custom object type.  Required Permissions: Read-Write Custom Object Type",
+          "operationId":"discardCustomObjectTypeUsingPOST",
+          "consumes":[  
+            "application/json"
+          ],
+          "produces":[  
+            "application/json"
+          ],
+          "parameters":[  
+            {  
+              "name":"apiName",
+              "in":"path",
+              "description": "API Name of the custom object type draft to discard",						
+              "required":true,
+              "type":"string"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "OK",
+              "schema": {
+                "$ref": "#/definitions/ResponseOfCustomObjectType"
+              }
+            }
+          }
+        }
+      },		
+      "/rest/v1/customobjects/schema/{apiName}/delete.json":{  
+        "post":{  
+          "tags":[  
+            "Custom Objects"
+          ],
+          "summary":"Delete Custom Object Type",
+          "description":"Deletes the target custom object type.  The type must first be removed from use by any assets, such as triggers or filters.  Required Permissions: Read-Write Custom Object Type",
+          "operationId":"deleteCustomObjectTypeUsingPOST",
+          "consumes":[  
+            "application/json"
+          ],
+          "produces":[  
+            "application/json"
+          ],
+          "parameters":[  
+            {  
+              "name":"apiName",
+              "in":"path",
+              "description": "API Name of the custom object type to delete",						
+              "required":true,
+              "type":"string"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "OK",
+              "schema": {
+                "$ref": "#/definitions/ResponseOfCustomObjectType"
+              }
+            }
+          }
+        }
+      },			
+      "/rest/v1/customobjects/schema/{apiName}/describe.json": {
+        "get": {
+          "tags": [
+            "Custom Objects"
+          ],
+          "summary": "Describe Custom Object Type",
+          "description": "Returns metadata regarding a given custom object type (including relationships and fields).  Required Permissions: Read-Only Custom Object Type, Read-Write Custom Object Type",
+          "operationId": "describeCustomObjectTypeUsingGET",
+          "consumes": [
+            "application/json"
+          ],
+          "produces": [
+            "application/json"
+          ],
+          "parameters": [
+            {
+              "name": "apiName",
+              "in": "path",
+              "description": "API name of custom object type to describe",
+              "required": true,
+              "type": "string"
+            },
+            {
+              "name": "state",
+              "in": "query",
+              "description": "State of custom object type to filter on.  By default, if an approved version exists, it is returned.  Otherwise, the draft version is returned.",
+              "required": false,
+              "type": "string",
+              "enum": [
+                "draft",
+                "approved",
+                "approvedWithDraft"
+              ]
+            }		  
+          ],
+          "responses": {
+            "200": {
+              "description": "OK",
+              "schema": {
+                "$ref": "#/definitions/ResponseOfObjectMetaData"
+              }
+            }
+          }
+        }
+      },	
+      "/rest/v1/customobjects/schema/{apiName}/addField.json": {
+        "post": {
+          "tags": [
+            "Custom Objects"
+          ],
+          "summary": "Add Custom Object Type Fields",
+          "description": "Adds fields to custom object type.  Required Permissions: Read-Write Custom Object Type",
+          "operationId": "addCustomObjectTypeFieldsUsingPOST",
+          "consumes": [
+            "application/json"
+          ],
+          "produces": [
+            "application/json"
+          ],
+          "parameters": [
+            {
+              "name": "apiName",
+              "in": "path",
+              "description": "API name of custom object type",
+              "required": true,
+              "type": "string"
+            },
+            {
+              "in": "body",
+              "name": "addCustomObjectTypeFieldsRequest",
+              "description": "JSON object containing custom object type fields",
+              "required": true,
+              "schema": {
+                "$ref": "#/definitions/AddCustomObjectTypeFieldsRequest"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "OK",
+              "schema": {
+                "$ref": "#/definitions/ResponseOfCustomObjectType"
+              }
+            }
+          }
+        }	  
+      },
+      "/rest/v1/customobjects/schema/{apiName}/deleteField.json": {
+        "post": {
+          "tags": [
+            "Custom Objects"
+          ],
+          "summary": "Delete Custom Object Type Fields",
+          "description": "Deletes fields from custom object type.  Required Permissions: Read-Write Custom Object Type",
+          "operationId": "deleteCustomObjectTypeFieldsUsingPOST",
+          "consumes": [
+            "application/json"
+          ],
+          "produces": [
+            "application/json"
+          ],
+          "parameters": [
+            {
+              "name": "apiName",
+              "in": "path",
+              "description": "API name of custom object type",
+              "required": true,
+              "type": "string"
+            },
+            {
+              "in": "body",
+              "name": "deleteCustomObjectTypeFieldsRequest",
+              "description": "JSON object containing custom object type fields",
+              "required": true,
+              "schema": {
+                "$ref": "#/definitions/DeleteCustomObjectTypeFieldsRequest"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "OK",
+              "schema": {
+                "$ref": "#/definitions/ResponseOfCustomObjectType"
+              }
+            }
+          }
+        }	  
+      },
+      "/rest/v1/customobjects/schema/{apiName}/{fieldApiName}/updateField.json": {
+        "post": {
+          "tags": [
+            "Custom Objects"
+          ],
+          "summary": "Update Custom Object Type Field",
+          "description": "Updates a field in custom object type.  Required Permissions: Read-Write Custom Object Type",
+          "operationId": "updateCustomObjectTypeFieldUsingPOST",
+          "consumes": [
+            "application/json"
+          ],
+          "produces": [
+            "application/json"
+          ],
+          "parameters": [
+            {
+              "name": "apiName",
+              "in": "path",
+              "description": "API name of custom object type",
+              "required": true,
+              "type": "string"
+            },
+            {
+              "name": "fieldApiName",
+              "in": "path",
+              "description": "API name of custom object type field",
+              "required": true,
+              "type": "string"
+            },		  
+            {
+              "in": "body",
+              "name": "updateCustomObjectTypeFieldRequest",
+              "description": "JSON object containing custom object type fields",
+              "required": true,
+              "schema": {
+                "$ref": "#/definitions/UpdateCustomObjectTypeFieldRequest"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "OK",
+              "schema": {
+                "$ref": "#/definitions/ResponseOfCustomObjectType"
+              }
+            }
+          }
+        }	  
+      },	
+      "/rest/v1/customobjects/schema/fieldDataTypes.json": {
+        "get": {
+          "tags": [
+            "Custom Objects"
+          ],
+          "summary": "Get Custom Object Type Field Data Types",
+          "description": "Returns a list of permissible data types that are assigned to custom object fields.  Required Permissions: Read-Only Custom Object Type, Read-Write Custom Object Type",
+          "operationId": "getCustomObjectTypeFieldDataTypesUsingGET",
+          "consumes": [
+            "application/json"
+          ],
+          "produces": [
+            "application/json"
+          ],
+          "responses": {
+            "200": {
+              "description": "OK",
+              "schema": {
+                "$ref": "#/definitions/ResponseOfCustomObjectTypeFieldDataTypes"
+              }
+            }
+          }
+        }
+      },	
+      "/rest/v1/customobjects/schema/linkableObjects.json": {
+        "get": {
+          "tags": [
+            "Custom Objects"
+          ],
+          "summary": "Get Custom Object Linkable Objects",
+          "description": "Returns a list of linkable custom objects and their fields.  Required Permissions: Read-Only Custom Object Type, Read-Write Custom Object Type",
+          "operationId": "getCustomObjectTypeLinkableObjectsUsingGET",
+          "consumes": [
+            "application/json"
+          ],
+          "produces": [
+            "application/json"
+          ],
+          "responses": {
+            "200": {
+              "description": "OK",
+              "schema": {
+                "$ref": "#/definitions/ResponseOfObjectLinkableObject"
+              }
+            }
+          }
+        }
+      },	
+      "/rest/v1/customobjects/schema/{apiName}/dependentAssets.json": {
+        "get": {
+          "tags": [
+            "Custom Objects"
+          ],
+          "summary": "Get Custom Object Dependent Assets",
+          "description": "Returns a list of dependent assets for a custom object type, including their in-instance location.  Required Permissions: Read-Only Custom Object Type, Read-Write Custom Object Type",
+          "operationId": "getCustomObjectTypeDependentAssetsUsingGET",
+          "consumes": [
+            "application/json"
+          ],
+          "produces": [
+            "application/json"
+          ],
+          "parameters": [
+            {
+              "name": "apiName",
+              "in": "path",
+              "description": "REST API name for custom object",
+              "required": true,
+              "type": "string"
+            }
+          ],		  
+          "responses": {
+            "200": {
+              "description": "OK",
+              "schema": {
+                "$ref": "#/definitions/ResponseOfObjectDependentAssets"
+              }
+            }
+          }
+        }
+      }		
+    },
+    "definitions": {
+
+      "ResponseOfImportCustomObjectResponse": {
+        "type": "object",
+        "required": [
+          "errors",
+          "requestId",
+          "result",
+          "success",
+          "warnings"
+        ],
+        "properties": {
+          "errors": {
+            "type": "array",
+            "description": "Array of errors that occurred if the request was unsuccessful",
+            "items": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "moreResult": {
+            "type": "boolean",
+            "example": false,
+            "description": "Boolean indicating if there are more results in subsequent pages"
+          },
+          "nextPageToken": {
+            "type": "string",
+            "description": "Paging token given if the result set exceeded the allowed batch size"
+          },
+          "requestId": {
+            "type": "string",
+            "description": "Id of the request made"
+          },
+          "result": {
+            "type": "array",
+            "description": "Array of results for individual records in the operation, may be empty",
+            "items": {
+              "$ref": "#/definitions/ImportCustomObjectResponse"
+            }
+          },
+          "success": {
+            "type": "boolean",
+            "example": false,
+            "description": "Whether the request succeeded"
+          },
+          "warnings": {
+            "type": "array",
+            "description": "Array of warnings given for the operation",
+            "items": {
+              "$ref": "#/definitions/Warning"
+            }
+          }
+        }
+      },
+      "ImportCustomObjectResponse": {
+        "type": "object",
+        "required": [
+          "batchId",
+          "objectApiName",
+          "operation",
+          "status"
+        ],
+        "properties": {
+          "batchId": {
+            "type": "integer",
+            "format": "int32",
+            "description": "Unique integer id of the import batch"
+          },
+          "importTime": {
+            "type": "string",
+            "description": "Time spent on the batch"
+          },
+          "message": {
+            "type": "string",
+            "description": "Status message of the batch"
+          },
+          "numOfObjectsProcessed": {
+            "type": "integer",
+            "format": "int32",
+            "description": "Number of rows processed so far"
+          },
+          "numOfRowsFailed": {
+            "type": "integer",
+            "format": "int32",
+            "description": "Number of rows failed so far"
+          },
+          "numOfRowsWithWarning": {
+            "type": "integer",
+            "format": "int32",
+            "description": "Number of rows with a warning so far"
+          },
+          "objectApiName": {
+            "type": "string",
+            "description": "Object API Name"
+          },
+          "operation": {
+            "type": "string",
+            "description": "Bulk operation type. Can be import or export"
+          },
+          "status": {
+            "type": "string",
+            "description": "Status of the batch"
+          }
+        },
+        "description": "Response containing import status information"
+      },
+      "ResponseOfExportResponseWithToken": {
+        "type": "object",
+        "required": [
+          "errors",
+          "requestId",
+          "result",
+          "success",
+          "warnings"
+        ],
+        "properties": {
+          "errors": {
+            "type": "array",
+            "description": "Array of errors that occurred if the request was unsuccessful",
+            "items": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "nextPageToken": {
+            "type": "string",
+            "description": "Paging token given if the result set exceeded the allowed batch size"
+          },
+          "requestId": {
+            "type": "string",
+            "description": "Id of the request made"
+          },
+          "result": {
+            "type": "array",
+            "description": "Array of results for individual records in the operation, may be empty",
+            "items": {
+              "$ref": "#/definitions/ExportResponse"
+            }
+          },
+          "success": {
+            "type": "boolean",
+            "example": false,
+            "description": "Whether the request succeeded"
+          },
+          "warnings": {
+            "type": "array",
+            "description": "Array of warnings given for the operation",
+            "items": {
+              "$ref": "#/definitions/Warning"
+            }
+          }
+        }
+      },
+      "ExportResponse": {
+        "type": "object",
+        "required": [
+          "exportId",
+          "status"
+        ],
+        "properties": {
+          "createdAt": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Date when the export request was created"
+          },
+          "errorMsg": {
+            "type": "string",
+            "description": "Error message in case of \"Failed\" status"
+          },
+          "exportId": {
+            "type": "string",
+            "description": "Unique id of the export job"
+          },
+          "fileSize": {
+            "type": "integer",
+            "format": "int64",
+            "description": "Size of exported file in bytes. This will have a value only when status is \"Completed\", otherwise null"
+          },
+          "fileChecksum": {
+            "type": "string",
+            "description": "SHA-256 hash of exported file. This will have a value only when status is \"Completed\", otherwise null"
+          },		
+          "finishedAt": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Finish time of export job. This will have value only when status is \"Completed\" or \"Failed\", otherwise null"
+          },
+          "format": {
+            "type": "string",
+            "description": "Format of file as given in the request (\"CSV\", \"TSV\", \"SSV\")"
+          },
+          "numberOfRecords": {
+            "type": "integer",
+            "format": "int64",
+            "description": "Number of records in the export file.  This will have value only when status is \"Completed\", otherwise null"
+          },
+          "queuedAt": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Queue time of export job. This will have value when \"Queued\" status is reached, before that null"
+          },
+          "startedAt": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Start time of export job. This will have value when \"Processing\" status is reached, before that null"
+          },
+          "status": {
+            "type": "string",
+            "description": "Status of the export job (\"Created\",\"Queued\",\"Processing\",\"Canceled\",\"Completed\",\"Failed\")"
+          }
+        },
+        "description": "Response containing export job status information"
+      },
+      "ExportCustomObjectRequest": {
+        "type": "object",
+        "required": [
+          "fields",
+          "filter"
+        ],
+        "properties": {
+          "columnHeaderNames": {
+            "description": "File header field names override (corresponds with REST API name)",
+            "$ref": "#/definitions/ColumnHeaderNames"
+          },
+          "fields": {
+            "type": "array",
+            "description": "Comma-separated list of custom object attributes to include in the file",
+            "items": {
+              "type": "string"
+            }
+          },
+          "filter": {
+            "description": "Custom object record selection criteria. Can be one of the following: \"updatedAt\", \"staticListName\", \"staticListId\", \"smartListName\", \"smartListId\"",
+            "$ref": "#/definitions/ExportCustomObjectFilter"
+          },
+          "format": {
+            "type": "string",
+            "description": "File format to create(\"CSV\", \"TSV\", \"SSV\").  Default is \"CSV\""
+          }
+        }
+      },	
+      "ColumnHeaderNames": {
+        "type": "object",
+        "required": [
+          "name",
+          "value"
+        ],
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "REST API name for header field"
+          },
+          "value": {
+            "type": "string",
+            "description": "Value for header field"
+          }
+        }
+      },
+      "ExportCustomObjectFilter": {
+        "type": "object",
+        "required": [
+          "updatedAt",	  
+          "smartListId",
+          "smartListName",
+          "staticListId",
+          "staticListName"
+        ],
+        "properties": {
+          "updatedAt": {
+            "description": "Date range to filter updated custom objects on",
+            "$ref": "#/definitions/DateRange"
+          },
+          "smartListId": {
+            "type": "integer",
+            "format": "int32",
+            "description": "Id of smart list to retrieve leads from"
+          },
+          "smartListName": {
+            "type": "string",
+            "description": "Name of smart list to retrieve leads from"
+          },
+          "staticListId": {
+            "type": "integer",
+            "format": "int32",
+            "description": "Id of static list to retrieve leads from"
+          },
+          "staticListName": {
+            "type": "string",
+            "description": "Name of static list to retrieve leads from"
+          }
+        }
+      },	
+      "ResponseOfExportResponse": {
+        "type": "object",
+        "required": [
+          "errors",
+          "requestId",
+          "result",
+          "success",
+          "warnings"
+        ],
+        "properties": {
+          "errors": {
+            "type": "array",
+            "description": "Array of errors that occurred if the request was unsuccessful",
+            "items": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "requestId": {
+            "type": "string",
+            "description": "Id of the request made"
+          },
+          "result": {
+            "type": "array",
+            "description": "Array of results for individual records in the operation, may be empty",
+            "items": {
+              "$ref": "#/definitions/ExportResponse"
+            }
+          },
+          "success": {
+            "type": "boolean",
+            "example": false,
+            "description": "Whether the request succeeded"
+          },
+          "warnings": {
+            "type": "array",
+            "description": "Array of warnings given for the operation",
+            "items": {
+              "$ref": "#/definitions/Warning"
+            }
+          }
+        }
+      },
+      "ObservableOfInputStreamRangeContent": {
+        "type": "object"
+      },
+      "ResponseOfObjectMetaData": {
+        "type": "object",
+        "required": [
+          "errors",
+          "requestId",
+          "result",
+          "success",
+          "warnings"
+        ],
+        "properties": {
+          "errors": {
+            "type": "array",
+            "description": "Array of errors that occurred if the request was unsuccessful",
+            "items": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "moreResult": {
+            "type": "boolean",
+            "example": false,
+            "description": "Boolean indicating if there are more results in subsequent pages"
+          },
+          "nextPageToken": {
+            "type": "string",
+            "description": "Paging token given if the result set exceeded the allowed batch size"
+          },
+          "requestId": {
+            "type": "string",
+            "description": "Id of the request made"
+          },
+          "result": {
+            "type": "array",
+            "description": "Array of results for individual records in the operation, may be empty",
+            "items": {
+              "$ref": "#/definitions/ObjectMetaData"
+            }
+          },
+          "success": {
+            "type": "boolean",
+            "example": false,
+            "description": "Whether the request succeeded"
+          },
+          "warnings": {
+            "type": "array",
+            "description": "Array of warnings given for the operation",
+            "items": {
+              "$ref": "#/definitions/Warning"
+            }
+          }
+        }
+      },
+      "ObjectMetaData": {
+        "type": "object",
+        "required": [
+          "createdAt",
+          "dedupeFields",
+          "description",
+          "displayName",
+          "pluralName",
+          "fields",
+          "idField",
+          "apiName",
+          "relationships",
+          "searchableFields",
+          "updatedAt",
+          "status",
+          "version"
+        ],	  
+        "properties": {
+          "createdAt": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Datetime when the object type was created"
+          },
+          "dedupeFields": {
+            "type": "array",
+            "description": "List of dedupe fields.  Arrays with multiple members are compound keys",
+            "items": {
+              "type": "string"
+            }
+          },
+          "description": {
+            "type": "string",
+            "description": "Description of the object type"
+          },
+          "displayName": {
+            "type": "string",
+            "description": "UI display-name of the object type"
+          },
+          "pluralName": {
+            "type": "string",
+            "description": "UI plural-name of the custom object type"
+          },		
+          "fields": {
+            "type": "array",
+            "description": "List of fields available on the object type",
+            "items": {
+              "$ref": "#/definitions/ObjectField"
+            }
+          },
+          "idField": {
+            "type": "string",
+            "description": "Primary id key of the object type"
+          },
+          "apiName": {
+            "type": "string",
+            "description": "Name of the object type"
+          },
+          "relationships": {
+            "type": "array",
+            "description": "List of relationships which the object has",
+            "items": {
+              "$ref": "#/definitions/ObjectRelation"
+            }
+          },
+          "searchableFields": {
+            "type": "array",
+            "description": "List of fields valid for use as a filter type in a query",
+            "items": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Datetime when the object type was most recently updated"
+          },
+          "state": {
+            "type": "string",
+            "description": "Approval state of object type",		  
+            "enum": [
+              "draft",
+              "approved",
+              "approvedWithDraft"
+            ]
+          },
+          "version": {
+            "type": "string",
+            "description": "Version of object type that is returned in response",		  
+            "enum": [
+              "draft",
+              "approved"
+            ]
+          }		
+        }
+      },
+      "ObjectField": {
+        "type": "object",
+        "properties": {
+          "dataType": {
+            "type": "string",
+            "description": "Datatype of the field"
+          },
+          "displayName": {
+            "type": "string",
+            "description": "UI display-name of the field"
+          },
+          "length": {
+            "type": "integer",
+            "format": "int32",
+            "description": "Max length of the field.  Only applicable to text, string, and text area."
+          },
+          "name": {
+            "type": "string",
+            "description": "Name of the field"
+          },
+          "updateable": {
+            "type": "boolean",
+            "example": false,
+            "description": "Whether the field is updateable"
+          },
+          "crmManaged": {
+            "type": "boolean",
+            "example": false,
+            "description": "Whether the field is managed by CRM (native sync)"
+          }
+        }
+      },
+      "ObjectRelation": {
+        "type": "object",
+        "required": [
+          "field",
+          "relatedTo",
+          "type"
+        ],	  
+        "properties": {
+          "field": {
+            "type": "string",
+            "description": "API Name of link field"
+          },
+          "relatedTo": {
+            "description": "Object to which the field is linked",
+            "$ref": "#/definitions/RelatedObject"
+          },
+          "type": {
+            "type": "string",
+            "description": "Type of the relationship field"
+          }
+        }
+      },
+      "RelatedObject": {
+        "type": "object",
+        "required": [
+          "field",
+          "name"
+        ],	  
+        "properties": {
+          "field": {
+            "type": "string",
+            "description": "Name of link field (within link object)"
+          },
+          "name": {
+            "type": "string",
+            "description": "Name of the link object"
+          }
+        }
+      },
+      "LookupCustomObjectRequest": {
+        "type": "object",
+        "required": [
+          "input"
+        ],
+        "properties": {
+          "batchSize": {
+            "type": "integer",
+            "format": "int32",
+            "description": "Maximum number of records to return in the response.  Max and default is 300"
+          },
+          "fields": {
+            "type": "array",
+            "description": "List of fields to return. If not specified, will return the following fields: marketoGuid, dedupeFields, updatedAt, createdAt, filterType",
+            "items": {
+              "type": "string"
+            }
+          },
+          "filterType": {
+            "type": "string",
+            "description": "Field to search on.  Valid values are: dedupeFields, idFields, and any field defined in searchableFields attribute of Describe endpoint.  Default is dedupeFields"
+          },
+          "input": {
+            "type": "array",
+            "description": "Search values when using a compound key.  Each element must include each of the fields in the compound key.  Compound keys are determined by the contents of \"dedupeFields\" in the Describe result for the object",
+            "items": {
+              "$ref": "#/definitions/CustomObject"
+            }
+          },
+          "nextPageToken": {
+            "type": "string",
+            "description": "Paging token returned from a previous response"
+          }
+        }
+      },
+      "CustomObject": {
+        "type": "object",
+        "required": [
+          "marketoGUID",
+          "seq"
+        ],
+        "properties": {
+          "marketoGUID": {
+            "type": "string",
+            "description": "Unique GUID of the custom object records"
+          },
+          "reasons": {
+            "type": "array",
+            "description": "List of reasons why an operation did not succeed.  Reasons are only present in API responses and should not be submitted",		  
+            "items": {
+              "$ref": "#/definitions/Reason"
+            }
+          },
+          "seq": {
+            "type": "integer",
+            "format": "int32",
+            "description": "Integer indicating the sequence of the record in response.  This value is correlated to the order of the records included in the request input.  Seq should only be part of responses and should not be submitted."
+          }
+        }
+      },
+      "Reason": {
+        "type": "object",
+        "required": [
+          "code",
+          "message"
+        ],
+        "properties": {
+          "code": {
+            "type": "string",
+            "description": "Integer code of the reason"
+          },
+          "message": {
+            "type": "string",
+            "description": "Message describing the reason for the status of the operation"
+          }
+        }
+      },
+      "ResponseOfCustomObject": {
+        "type": "object",
+        "required": [
+          "errors",
+          "requestId",
+          "result",
+          "success",
+          "warnings"
+        ],
+        "properties": {
+          "errors": {
+            "type": "array",
+            "description": "Array of errors that occurred if the request was unsuccessful",
+            "items": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "moreResult": {
+            "type": "boolean",
+            "example": false,
+            "description": "Boolean indicating if there are more results in subsequent pages"
+          },
+          "nextPageToken": {
+            "type": "string",
+            "description": "Paging token given if the result set exceeded the allowed batch size"
+          },
+          "requestId": {
+            "type": "string",
+            "description": "Id of the request made"
+          },
+          "result": {
+            "type": "array",
+            "description": "Array of results for individual records in the operation, may be empty",
+            "items": {
+              "$ref": "#/definitions/CustomObject"
+            }
+          },
+          "success": {
+            "type": "boolean",
+            "example": false,
+            "description": "Whether the request succeeded"
+          },
+          "warnings": {
+            "type": "array",
+            "description": "Array of warnings given for the operation",
+            "items": {
+              "$ref": "#/definitions/Warning"
+            }
+          }
+        }
+      },
+      "SyncCustomObjectRequest": {
+        "type": "object",
+        "required": [
+          "input"
+        ],
+        "properties": {
+          "action": {
+            "type": "string",
+            "description": "Type of sync operation to perform",
+            "enum": [
+              "createOnly",
+              "updateOnly",
+              "createOrUpdate"
+            ]
+          },
+          "dedupeBy": {
+            "type": "string",
+            "description": "Field to deduplicate on.  If the value in the field for a given record is not unique, an error will be returned for the individual record."
+          },
+          "input": {
+            "type": "array",
+            "description": "List of input records",
+            "items": {
+              "$ref": "#/definitions/CustomObject"
+            }
+          }
+        }
+      },
+      "DeleteCustomObjectRequest": {
+        "type": "object",
+        "required": [
+          "input"
+        ],
+        "properties": {
+          "deleteBy": {
+            "type": "string",
+            "description": "Field to delete records by.  Permissible values are idField or dedupeFields as indicated by the result of the corresponding describe record"
+          },
+          "input": {
+            "type": "array",
+            "description": "List of input records",
+            "items": {
+              "$ref": "#/definitions/CustomObject"
+            }
+          }
+        }
+      },
+      "SyncCustomObjectTypeRequest": {
+        "type": "object",
+        "required": [
+          "apiName",
+          "displayName"
+        ],
+        "properties": {
+          "action": {
+            "type": "string",
+            "description": "Type of sync operation to perform.  Default is createOrUpdate.",
+            "enum": [
+              "createOnly",
+              "updateOnly",
+              "createOrUpdate"
+            ]
+          },
+          "displayName": {
+            "type": "string",
+            "description": "UI display-name of the custom object type"
+          },
+          "apiName": {
+            "type": "string",
+            "description": "API name of the custom object type"
+          },		
+          "pluralName": {
+            "type": "string",
+            "description": "UI plural-name of the custom object type"
+          },		
+          "description": {
+            "type": "string",
+            "description": "Description of the custom object type"
+          },	
+          "showInLeadDetail": {
+            "type": "boolean",
+            "description": "Whether to show custom object type in lead detail of UI.  Default is false"
+          }		
+        }
+      },	
+      "ResponseOfCustomObjectType": {
+        "type": "object",
+        "required": [
+          "errors",
+          "requestId",
+          "result",
+          "success",
+          "warnings"
+        ],
+        "properties": {
+          "errors": {
+            "type": "array",
+            "description": "Array of errors that occurred if the request was unsuccessful",
+            "items": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "requestId": {
+            "type": "string",
+            "description": "Id of the request made"
+          },
+          "result": {
+            "type": "array",
+            "description": "Empty array",
+            "items": {
+              "$ref": "#/definitions/Empty"
+            }
+          },
+          "success": {
+            "type": "boolean",
+            "example": false,
+            "description": "Whether the request succeeded"
+          },
+          "warnings": {
+            "type": "array",
+            "description": "Array of warnings given for the operation",
+            "items": {
+              "$ref": "#/definitions/Warning"
+            }
+          }
+        }
+      },	
+      "AddCustomObjectTypeFieldsRequest": {
+        "type": "object",
+        "required": [
+          "input"
+        ],	  	  
+        "properties": {
+          "input": {
+            "type": "array",
+            "description": "List of fields to add to custom object type",
+            "items": {
+              "$ref": "#/definitions/AddCustomObjectTypeField"
+            }
+          }
+        }
+      },   
+      "AddCustomObjectTypeField": {
+        "type": "object",
+        "required": [
+          "name",
+          "displayName",
+          "dataType"
+        ],	  	  
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "API Name of custom object field"
+          },
+          "displayName": {
+            "type": "string",
+            "description": "UI display-name of the custom object field"
+          },
+          "dataType": {
+            "type": "string",
+            "description": "Datatype of the custom object field"
+          },
+          "description": {
+            "type": "string",
+            "description": "Description of the custom object field"
+          },	
+          "isDedupeField": {
+            "type": "boolean",
+            "description": "Set to true to enable field as unique identifier for deduplicating records.  Default is false"
+          },
+          "relatedTo": {
+            "description": "Define custom object link field",
+            "$ref": "#/definitions/CustomObjectTypeFieldRelatedTo"
+          }
+        }
+      },
+      "CustomObjectTypeFieldRelatedTo": {
+        "type": "object",
+        "required": [
+          "name",
+          "field"
+        ],	  	  
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "Name of linkable object type"
+          },
+          "field": {
+            "type": "string",
+            "description": "Foreign field to which the parent is linked"
+          }
+        }
+      },
+      "DeleteCustomObjectTypeFieldsRequest": {
+        "type": "object",
+        "required": [
+          "input"
+        ],	  	  	  
+        "properties": {
+          "input": {
+            "type": "array",
+            "description": "List of fields to delete from the custom object type",
+            "items": {
+              "$ref": "#/definitions/DeleteCustomObjectTypeField"
+            }
+          }
+        }
+      },   
+      "DeleteCustomObjectTypeField": {
+        "type": "object",
+        "required": [
+          "name"
+        ],	  	  
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "API Name of custom object type field"
+          }
+        }
+      },
+      "UpdateCustomObjectTypeFieldRequest": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "API Name of custom object field"
+          },
+          "displayName": {
+            "type": "string",
+            "description": "UI display-name of the custom object field"
+          },
+          "dataType": {
+            "type": "string",
+            "description": "Datatype of the custom object field"
+          },
+          "description": {
+            "type": "string",
+            "description": "Description of the custom object field"
+          },	
+          "isDedupeField": {
+            "type": "boolean",
+            "description": "Set to true to enable field as unique identifier for deduplicating records.  Default is false"
+          },
+          "relatedTo": {
+            "description": "Define custom object link field",
+            "$ref": "#/definitions/CustomObjectTypeFieldRelatedTo"
+          }
+        }
+      },	
+      "ResponseOfCustomObjectTypeFieldDataTypes": {
+        "type": "object",
+        "required": [
+          "errors",
+          "requestId",
+          "result",
+          "success",
+          "warnings"
+        ],
+        "properties": {
+          "errors": {
+            "type": "array",
+            "description": "Array of errors that occurred if the request was unsuccessful",
+            "items": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "requestId": {
+            "type": "string",
+            "description": "Id of the request made"
+          },
+          "result": {
+            "type": "array",
+            "description": "List of permissible data types for custom object fields",
+            "items": {
+              "type": "string"
+            }
+          },
+          "success": {
+            "type": "boolean",
+            "example": false,
+            "description": "Whether the request succeeded"
+          },
+          "warnings": {
+            "type": "array",
+            "description": "Array of warnings given for the operation",
+            "items": {
+              "$ref": "#/definitions/Warning"
+            }
+          }
+        }
+      },	
+      "ResponseOfObjectLinkableObject": {
+        "type": "object",
+        "required": [
+          "errors",
+          "requestId",
+          "result",
+          "success",
+          "warnings"
+        ],
+        "properties": {
+          "errors": {
+            "type": "array",
+            "description": "Array of errors that occurred if the request was unsuccessful",
+            "items": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "requestId": {
+            "type": "string",
+            "description": "Id of the request made"
+          },
+          "result": {
+            "type": "array",
+            "description": "List of permissible objects to use as custom object link field",
+            "items": {
+              "$ref": "#/definitions/ObjectLinkableObject"
+            }
+          },
+          "success": {
+            "type": "boolean",
+            "example": false,
+            "description": "Whether the request succeeded"
+          },
+          "warnings": {
+            "type": "array",
+            "description": "Array of warnings given for the operation",
+            "items": {
+              "$ref": "#/definitions/Warning"
+            }
+          }
+        }
+      },		
+      "ObjectLinkableObject": {
+        "type": "object",
+        "required": [
+          "name",
+          "displayName",
+          "fields"
+        ],
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "Link object API name"
+          },
+          "displayName": {
+            "type": "string",
+            "description": "Link object UI display-name"
+          },
+          "fields": {
+            "type": "array",
+            "description": "List of fields available on the link object",
+            "items": {
+              "$ref": "#/definitions/ObjectLinkableObjectField"
+            }
+          }
+        }
+      },
+      "ObjectLinkableObjectField": {
+        "type": "object",
+        "required": [
+          "name",
+          "displayName",
+          "dataType"
+        ],
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "Link field API name"
+          },
+          "displayName": {
+            "type": "string",
+            "description": "Link field name"
+          },
+          "dataType": {
+            "type": "string",
+            "description": "Link field data type"
+          }
+        }
+      },
+      "ResponseOfObjectDependentAssets": {
+        "type": "object",
+        "required": [
+          "errors",
+          "requestId",
+          "result",
+          "success",
+          "warnings"
+        ],
+        "properties": {
+          "errors": {
+            "type": "array",
+            "description": "Array of errors that occurred if the request was unsuccessful",
+            "items": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "requestId": {
+            "type": "string",
+            "description": "Id of the request made"
+          },
+          "result": {
+            "type": "array",
+            "description": "List of dependent assets for a custom object type",
+            "items": {
+              "$ref": "#/definitions/ObjectDependentAsset"
+            }
+          },
+          "success": {
+            "type": "boolean",
+            "example": false,
+            "description": "Whether the request succeeded"
+          },
+          "warnings": {
+            "type": "array",
+            "description": "Array of warnings given for the operation",
+            "items": {
+              "$ref": "#/definitions/Warning"
+            }
+          }
+        }
+      },			
+      "ObjectDependentAsset": {
+        "type": "object",
+        "required": [
+          "assetType",
+          "assetId",
+          "assetName"
+        ],
+        "properties": {
+          "assetType": {
+            "type": "string",
+            "description": "Type of asset"
+          },
+          "assetId": {
+            "type": "integer",
+            "format": "int32",		  
+            "description": "ID of asset"
+          },		
+          "assetName": {
+            "type": "string",
+            "description": "Name of asset"
+          },
+          "usedFields": {
+            "type": "array",
+            "description": "List of associated fields",
+            "items": {
+                "type": "string"
+            }
+          }
+        }
+      },	
+      "Empty": {
+      },
+      "DateRange": {
+        "type": "object",
+        "properties": {
+          "endAt": {
+            "type": "string",
+            "description": "End of date range filter (ISO 8601-format)"
+          },
+          "startAt": {
+            "type": "string",
+            "description": "Start of date range filter (ISO-8601 format)"
+          }
+        }
+      },
+      "Error": {
+        "type": "object",
+        "required": [
+          "code",
+          "message"
+        ],
+        "properties": {
+          "code": {
+            "type": "string",
+            "description": "Error code of the error.  See full list of error codes <a href=\"https://developers.marketo.com/rest-api/error-codes/\">here</a>"
+          },
+          "message": {
+            "type": "string",
+            "description": "Message describing the cause of the error"
+          }
+        }
+      },
+      "Warning": {
+        "type": "object",
+        "required": [
+          "code",
+          "message"
+        ],
+        "properties": {
+          "code": {
+            "type": "integer",
+            "format": "int32",
+            "description": "Integer code of the warning"
+          },
+          "message": {
+            "type": "string",
+            "description": "Message describing the warning"
+          }
+        }
+      },
+      "ObservableOfInputStreamContent": {
+        "type": "object"
+      }
+
+    }
+  }

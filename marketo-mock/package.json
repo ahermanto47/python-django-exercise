@@ -4,8 +4,9 @@
   "description": "Mock service for marketo swagger api",
   "main": "index.js",
   "scripts": {
-    "identity":"prism mock swagger-identity.json --port 4010 --dynamic --errors",
-    "activities":"prism mock swagger-bulk-export-activities.json --port 4011 --errors"
+    "identity": "prism mock swagger-identity.json --port 4010 --dynamic --errors",
+    "bulk-activity": "prism mock swagger-bulk-activity.json --port 4011 --errors",
+    "bulk-custom-object": "prism mock swagger-bulk-custom-object.json --port 4012 --errors"
   },
   "repository": {
     "type": "git",

@@ -1,5 +1,5 @@
 import pytest
-from .marketo_bulk_activity_client import MarketoBulkActivityClient
+from .marketo_bulk_custom_object_client import MarketoBulkCustomObjectClient
 from marketo_identity_client import MarketoIdentityClient
 import os
 import csv
@@ -16,35 +16,39 @@ def security_client():
 
 @pytest.fixture
 def client(security_client):
-    return MarketoBulkActivityClient(baseUrl="http://127.0.0.1:4011",security_client=security_client)
+    return MarketoBulkCustomObjectClient(api_name='reservation_c',baseUrl="http://127.0.0.1:4012",security_client=security_client)
 
 def test_get_all_export_jobs(client):
     client.set_additional_params(additional_params={'__example':'success'})
     response = client.get_all_export_jobs()
-    assert response.status_code == 200
     response_data = response.json()
+    print(response_data)
+    assert response.status_code == 200
     assert response_data['success'] == True
     assert response_data['requestId'] == 'abc123'
     assert len(response_data['result']) >= 0
-    assert len(response_data['errors']) == 0
-    assert len(response_data['warnings']) == 0
 
 def test_create_export_job(client):
     payload = {
         'fields': ['leadId'],
         'filter': {
-            'createdAt': {
+            'updatedAt': {
                 'startAt': '2022-07-01T00:00:00Z',
                 'endAt': '2022-07-31T00:00:00Z'
-            }
+            },
+            "smartListId": 1,
+            "smartListName": 'test smart list',
+            "staticListId": 2,
+            "staticListName": 'test static list'
         }
     }
     response = client.create_export_job(data=payload)
-    assert response.status_code == 200
     response_data = response.json()
+    print(response_data)
+    assert response.status_code == 200
     assert len(response_data['result']) >= 0
     assert response_data['requestId'] != None
-    print(response_data)
+
 
 def test_cancel_export_job(client):
     response = client.cancel_export_job(export_id='abc123')
@@ -80,9 +84,23 @@ def test_get_export_file(client):
     for row in reader:
         print(row)
 
+"""
+
 @pytest.mark.skip(reason="need to figure out how to mock 602 response in prism")
 def test_get_all_export_jobs_with_expired_tokens(client):
     client.set_additional_params(additional_params={'__example':'expired_token'})
     response = client.get_all_export_jobs()
     print(response.json())
     assert response.status_code == 602
+
+"""
+
+def test_create_import_job_for_reservation(client):
+    client.set_additional_params(additional_params={'__example':'create_reservation_import_job'})
+    client.set_additional_params(additional_params={'format':'csv'})
+    multipart_form_data = {
+       ('reservation-data.csv', open('input/reservation.csv', 'rb')) 
+    }
+    response = client.create_import_job(files=multipart_form_data)
+    print(response.json())
+    assert response.status_code == 200

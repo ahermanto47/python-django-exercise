@@ -28,10 +28,7 @@ class MarketoBulkActivityClient:
         return requests.get(url=self.baseUrl+path,headers=self.headers,params=self.additional_params)
     
     def do_post(self,path,data=None):
-        if data != None :
-            return requests.post(url=self.baseUrl+path,headers=self.headers,json=data,params=self.additional_params) 
-        else:
-            return requests.post(url=self.baseUrl+path,headers=self.headers,params=self.additional_params)
+        return requests.post(url=self.baseUrl+path,headers=self.headers,json=data,params=self.additional_params) 
 
     """Add additional headers"""
 

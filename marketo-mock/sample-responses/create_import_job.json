@@ -1,0 +1,31 @@
+{
+   "errors": [
+      {
+      "code": "string",
+      "message": "string"
+      }
+   ],
+   "moreResult": false,
+   "nextPageToken": "string",
+   "requestId": "string",
+   "result": [
+      {
+      "batchId": 1,
+      "importTime": "string",
+      "message": "string",
+      "numOfObjectsProcessed": -2147483648,
+      "numOfRowsFailed": -2147483648,
+      "numOfRowsWithWarning": -2147483648,
+      "objectApiName": "string",
+      "operation": "string",
+      "status": "string"
+      }
+   ],
+   "success": false,
+   "warnings": [
+      {
+      "code": -2147483648,
+      "message": "string"
+      }
+   ]
+}

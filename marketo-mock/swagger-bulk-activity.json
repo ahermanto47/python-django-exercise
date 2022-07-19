@@ -73,6 +73,22 @@
           }
         ],
         "responses": {
+          "602": {
+            "description": "expired token",
+            "schema": {
+              "$ref": "#/definitions/ResponseOfExportResponseWithToken"
+            },
+            "examples": {
+              "expired_token": {
+                "errors": [],
+                "nextPageToken": "l",
+                "requestId": "abc123",
+                "result": [],
+                "success": false,
+                "warnings": []
+              }
+            }
+          },
           "200": {
             "description": "OK",
             "schema": {
