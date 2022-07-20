@@ -1,1 +1,0 @@
-# marketo-bulk-activity-client
